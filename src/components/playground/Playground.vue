@@ -1,11 +1,11 @@
 <template>
     <div class="page">
-        <div id="first">
-            <h1 class="first">Change the Image!</h1>
+        <div id="change-image">
+            <h1 class="change-image">Change the Image!</h1>
             <ChangeImage></ChangeImage>
         </div>
-        <div id="second">
-            <h1 class="second">Take a Quiz!</h1>
+        <div id="quiz">
+            <h1 class="quiz">Take a Quiz!</h1>
             <Quiz></Quiz>
         </div>
     </div>
@@ -14,6 +14,14 @@
 <script>
 import ChangeImage from './ChangeImage.vue'
 import Quiz from './Quiz.vue'
+import router from '@/router';
+
+function _goToHashSection() {
+    const _hash = router.currentRoute.value.hash.substring(1);
+    const _element = document.getElementById(_hash);
+    if (_element === null) return;
+    _element.scrollIntoView({ behavior: 'smooth'});
+}
 
 export default {
     name: 'Playground',
@@ -21,6 +29,12 @@ export default {
         ChangeImage,
         Quiz
     },
+    mounted(){
+      _goToHashSection();
+    },
+    updated(){
+      _goToHashSection();
+    }
 }
 </script>
 
@@ -32,7 +46,7 @@ h1 {
     padding-top: 50px;
 }
 
-h1.first {
+h1.change-image {
     color: white;
     animation: blink 5s infinite;
 }
@@ -58,15 +72,15 @@ h1.first {
   }
 }
 
-#first {
+#change-image {
     background: linear-gradient(purple 25%, rgb(184, 26, 184) 50%, rgb(230, 123, 230) 80%);
 }
 
-.second {
+.quiz {
     text-shadow: 3px 3.5px rgba(184, 37, 37, 0.5);
 }
 
-#second {
+#quiz{
     background: linear-gradient(90deg, darkgreen 10%, green 20%, yellowgreen 80%)
 }
 </style>

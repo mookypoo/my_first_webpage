@@ -27,7 +27,8 @@ export const popUpsStore = defineStore("pop ups", {
     actions: {
         async fetchPopUpStores() {
             console.log("fetching");
-            const _res = await fetch("http://localhost:8080/web/v1/stores?page=1&pageSize=16", {
+            // "http://localhost:8080/web/v1/stores?page=1&pageSize=16"
+            const _res = await fetch("http://124.5.182.47:8080/web/v1/stores?page=1&pageSize=16", {
                 mode: 'cors',
                 method: 'GET',
                 //headers: {"Access-Control-Allow-Origin": "*", origin: "http://localhost:9300"}, 

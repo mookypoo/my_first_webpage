@@ -5,22 +5,39 @@
             <router-link to="/"><button class="korean" id="nameBox">김혜수</button></router-link>
         </div>
         <div class="menu" type="button">
-            <TabButton text="Playground" path="/playground"></TabButton>
+            <TabButton   text="Playground" path="/playground"></TabButton>
         </div>
+
+        <router-link to="/playground">
+            <TabButton class="main-menu" text="Playground" path="/playground"></TabButton>
+            <div class="hidden submenu">
+                hello hello hello hi h ih ihi i ihi
+                <p>hihihihii</p>
+            </div>
+        </router-link>
+
+
+
         <div class="main-menu-container">
             
             <div class="main-menu">
                 <router-link to="guide" class="menu-text" id="guide" aria-controls="guide-menu" aria-expanded="false">
                     Guide
                 </router-link>
-                
             </div>
-            
-          
             <div class="hidden submenu" id="guide-menu" aria-labelledby="guide-menu">
                 <body>hello hello hello</body>
             </div>
         </div>
+
+
+        <router-link to="/playground">
+            <div class="main-menu-container">
+                Playground
+            </div>
+        </router-link>
+       
+
         <div class="menu" type="button">
             <TabButton class="menu" text="Guide" path="/guide" ></TabButton>
 
@@ -57,7 +74,6 @@ export default {
     box-sizing: border-box;
     height: v-bind(height);
     background-color: aqua;
-    
 }
 
 /*
@@ -67,7 +83,8 @@ display: flex;
     max-width: 310px;*/ 
 
 .main-menu {
-    width: 100px;
+    /* width: 100px; */
+    
     height: 100%;
     box-sizing: border-box;
     font-size: 16px;
@@ -75,9 +92,6 @@ display: flex;
     display: grid;
     background-color:orange;
     align-content: center;
-
-    
-    
 }
 
 
@@ -120,7 +134,6 @@ margin: 0 20px 0 20px;
 }
 
 
-
 #nameBox {
     height: v-bind(height);
     width: 130px;
@@ -137,8 +150,8 @@ margin: 0 20px 0 20px;
 a {
     text-decoration: none;
 }
+
 .submenu {
-   
     display: none;
 }
 

@@ -20,8 +20,8 @@
 
 <script>
 import { Profile } from '../class/profile.js'
-import Education from './Education.vue'
-import InfoRow from './basic_info/InfoRow.vue'
+import Education from './about_me/Education.vue'
+import InfoRow from './contact/InfoRow.vue';
 
 export default {
     components: {

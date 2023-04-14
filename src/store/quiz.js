@@ -93,6 +93,19 @@ const _quiz = [
     ),
 ];
 
+/*
+export const useCounterStore = defineStore('counter', () => {
+  const count = ref(0)
+  const name = ref('Eduardo')
+  const doubleCount = computed(() => count.value * 2)
+  function increment() {
+    count.value++
+  }
+
+  return { count, name, doubleCount, increment }
+}) 
+*/
+
 /// 이렇게 안하고 그냥 JSON.parse(JSON.stringify(array)) 만 하면 Quiz인지 인식 못함 
 const copyArray = (array, fromJson) => {
     let _arr = [];
@@ -104,6 +117,75 @@ const copyArray = (array, fromJson) => {
     return _arr;
 }
 
+/// composition API
+export const useQuizStore = defineStore("quiz", {
+    state: () => ({ 
+        /// quiz: [new Quiz()]
+        currentIndex: 0,
+        mode: "quiz",
+        quiz: copyArray(_quiz, Quiz.prototype.fromJson),
+        score: 0,
+    }),
+    actions: {
+        _currentQuestion() { return this.myQuiz[this.currentIndex]; },
+        _onClickAnswer(answerId) {
+            const _index = this._currentQuestion().answers.findIndex((value) => value.answerId === answerId);
+            this._currentQuestion().answers[_index].isSelected = !this._currentQuestion().answers[_index].isSelected;
+        },
+        onClickCheckBox(answerId) {
+            this._onClickAnswer(answerId);
+        },
+        onClickRadioButton(answerId) {
+            const _previouslySelectedIndex = this._currentQuestion().answers.findIndex((value) => value.isSelected);
+            if (_previouslySelectedIndex !== -1) this._currentQuestion().answers[_previouslySelectedIndex].isSelected = false;
+            this._onClickAnswer(answerId);
+        },
+        onClickArrow(isLeft) {
+            if (isLeft) this.currentIndex--;
+            if (!isLeft) this.currentIndex++;
+        },
+        resetQuiz() {
+            this.quiz = copyArray(_quiz, Quiz.prototype.fromJson);
+            this.currentIndex = 0;
+            this.score = 0;
+        },
+        onSubmit() {
+            let _unansweredQuestions = [];
+            for (const question of this.myQuiz) {
+                if (!question.isAnswered) {
+                    const _index = this.myQuiz.findIndex(value => value.questionId === question.questionId);
+                    console.log(_index);
+                    _unansweredQuestions.push(_index + 1);
+                }
+            }
+            if (_unansweredQuestions.length != 0) {
+                alert(`please finish the following questions!\nquestions: ${_unansweredQuestions}`);
+                return;
+            }
+
+            // JSON.parse(JSON.stringify(_quiz)) 로 하면  console.log(this.myQuiz[i] instanceof Quiz) is false 
+            let _numOfCorrectAnswers = 0;
+            for (let i = 0; i < this.myQuiz.length; i++){
+                if (this.myQuiz[i].isAnsweredCorrectly) _numOfCorrectAnswers++;
+            }
+            this.score = _numOfCorrectAnswers / this.quiz.length * 100;
+            this.mode = "result";
+        },
+        reTakeQuiz() {
+            this.mode = "quiz";
+            this.resetQuiz();
+        }
+    },
+    getters: {
+        myQuiz() {
+            let _arr = [new Quiz()];
+            _arr = this.quiz;
+            return _arr;
+        }
+    },
+})
+
+/// options API
 export const quizStore = defineStore("quiz", {
     state: () => ({ 
         /// quiz: [new Quiz()]

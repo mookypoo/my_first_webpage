@@ -17,6 +17,14 @@ export default {
         fontSize: {
             type: String,
             default: "15px"
+        },
+        boxWidth: {
+            type: String,
+            default: "20px"
+        },
+        bgColor: {
+            type: String,
+            default: "white"
         }
     },
 }
@@ -33,13 +41,15 @@ export default {
 }
 
 .box {
-    width: 20px;
-    height: 20px;
+    width: v-bind(boxWidth);
+    height: v-bind(boxWidth);
     border: 1px black solid;
-    border-radius: 5px;
+    border-radius: 3px;
     margin-right: 0.8rem;
     padding: 0;
     align-content: center;
+    align-self: center;
+    background-color: v-bind(bgColor);
 }
 
 .box.selected {

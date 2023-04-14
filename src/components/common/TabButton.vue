@@ -57,7 +57,7 @@ export default {
 .tab-button {
     height: 70px;
     margin-right: 30px;
-    background-color: white;
+    
     border: none;
     font-size: 16px;
     font-weight: 600;

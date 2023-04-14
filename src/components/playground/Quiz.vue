@@ -31,10 +31,26 @@
             <MainButton text="Retake" :width="buttonWidth" :onClick="reTakeQuiz"></MainButton>
         </div>  
     </div>
+    
 </template>
 
+<script setup>
+import CheckBox from './CheckBox.vue'
+import RadioButton from './RadioButton.vue'
+import MainButton from '../common/MainButton.vue'
+import { mapActions, mapState } from "pinia";
+import { useQuizStore, quizStore } from '@/store/quiz.js'
+import { computed } from 'vue';
 
-<script>
+const store = useQuizStore();
+const mode = computed(() => store.mode);
+const currentIndex = computed(() => store.currentIndex);
+const myQuiz = computed(() => store.myQuiz);
+
+</script>
+
+
+
 import CheckBox from './CheckBox.vue'
 import RadioButton from './RadioButton.vue'
 import MainButton from '../common/MainButton.vue'
@@ -71,7 +87,7 @@ export default {
     },
 
 }
-</script>
+
 
 
 <style scoped>
